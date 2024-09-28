@@ -1,0 +1,71 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define N 10
+int stack[N];
+int top=-1;
+ void push(int num)
+ {
+     if(top==N-1)
+     {
+         printf("stack overflow\n");
+     }
+     else
+     {
+         stack[++top]=num;
+     }
+ }
+ void pop()
+ {
+     if(top==-1)
+     {
+         printf("underflow\n");
+     }
+     else
+     {
+         printf("poped out element %d\n",stack[top]);
+         top--;
+     }
+ }
+ void display()
+ {
+     for(int i=0;i<top;i++)
+     {
+         printf("%d ",stack[i]);
+     }
+     printf("\n");
+ }
+ void peek()
+ {
+     if(top==-1)
+     printf("no element\n");
+     else
+     printf("top element : %d\n",stack[top]);
+ }
+ int main()
+ {
+     int option;
+      printf("Press 1 to add element\nPress 2 to delete element\nPress 3 to display\npress 4 to display top element :    ");
+     while(1)
+     {
+        
+        scanf("%d",&option); 
+     
+     switch(option)
+     {
+         case 1 : printf("enter data : ");
+                  int num;
+                  scanf("%d",&num);
+                  push(num); break;
+        case 2 : pop();break;
+        case 3 : display();break;
+        case 4 : peek();break;
+        default : printf("enter valid operation\n");
+     }
+     printf("to continue press 1 else 0 : ");
+     int n;
+     scanf("%d",&n);
+     if(n==0)
+     break;
+     printf("enter operation; ");
+     }
+ }
