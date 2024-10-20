@@ -1,0 +1,101 @@
+#include<stdio.h>
+
+char stack[100]={0};
+int top=-1;
+int index=0;
+
+void push(char ch)
+{
+    stack[++top]=ch;
+}
+
+int pop()
+{
+   return stack[top--]; 
+}
+
+int precedence(char ch)
+{
+    if(ch=='^')
+    return 4;
+    else if(ch=='*'||ch=='/')
+    return 3;
+    else if(ch=='+'||ch=='-')
+    return 2;
+    else
+    return 1;
+}
+
+char associativity(char ch)
+{
+    if(ch=='^')
+    return 'R';
+    return 'L';
+}
+
+void infix_to_postfix(char *infix,char*postfix,int size)
+{
+    for(int i=0;i<size;i++)
+    {
+        if(infix[i]>='a'&&infix[i]<='z'||infix[i]>='A'&&infix[i]<='Z')
+        {
+            postfix[index++]=infix[i];
+        }
+        else if(top==-1||precedence(infix[i])>precedence(stack[top])||infix[i]=='(')
+        {
+            push(infix[i]);
+        }
+        else if (infix[i]==')')
+        {
+            while(stack[top]!='(')
+            {printf("q");
+                postfix[index++]=pop();
+            }
+            pop();
+        }
+        else
+        {
+            while(precedence(infix[i])<precedence(stack[top]))
+            {
+                postfix[index++]=pop();
+            }
+            
+            if(precedence(infix[i])==precedence(stack[top]))
+            {
+                if(associativity(infix[i])=='L')
+                {
+                     postfix[index++]=pop();
+                     push(infix[i]);
+                }
+                else
+                {
+                    push(infix[i]);
+                }
+            }
+            else
+            {
+                push(infix[i]);
+            }
+        }
+    }
+    while(top!=-1)
+    {printf("1");
+        postfix[index++]=pop();
+    }
+    postfix[index]='\0';
+}
+
+void main()
+{
+    int size;
+    printf("Size of Infix Array : ");
+    scanf("%d",&size);
+    char infix[size];
+    printf("Enter Infix elements : ");
+    scanf("%s",infix);
+    char postfix[size];
+    infix_to_postfix(infix,postfix,size);
+    printf("Your postfix expression : ");
+    printf("%s",postfix);
+    
+}
