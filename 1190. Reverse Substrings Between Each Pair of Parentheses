@@ -1,0 +1,33 @@
+void copy_to_arr(char*stack,int*top,char*arr,int*count)
+{
+    while(*top>-1&&stack[(*top)]!='(')
+    {
+        arr[(*count)++] = stack[(*top)--];
+    }
+    (*top)--;
+    for(int i=0;i<*count;i++)
+    stack[++(*top)] = arr[i];
+}
+
+char* reverseParentheses(char* s) 
+{
+    int n = strlen(s);
+    char *stack = malloc(sizeof(char)*(n+3));
+    int top=-1;
+    char *arr = malloc(sizeof(char)*(n+3));
+    int count=0;
+    for(int i=0;i<n;i++)
+    {
+         
+       if(s[i]!=')')
+       {
+        stack[++top] = s[i];
+       }
+       else{
+        copy_to_arr(stack,&top,arr,&count);
+        count=0;
+       }
+    }
+    stack[++top] = '\0';
+    return stack;
+}
