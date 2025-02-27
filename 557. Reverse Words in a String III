@@ -1,0 +1,22 @@
+char* reverseWords(char* s) {
+    int len = strlen(s);
+    char stack[len];
+    int top = -1;
+    int i;
+    for( i=0;i<len;i++)
+    {
+      if(s[i]!=' ')
+       stack[++top]=s[i];
+      else{
+         while(top>=0)
+         {
+          s[i-top-2] = stack[top--];
+         }
+       }
+    }
+    while(top>=0)
+    {
+     s[i-top-2] = stack[top--];
+    }
+    return s;   
+}
